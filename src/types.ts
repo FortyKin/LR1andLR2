@@ -12,10 +12,15 @@ export interface Person {
     image: string;
     price: string;
   }
-  export interface Person {
+  export interface Person3 {
     id: number;
     name: string;
     job: string;
     image: string;
     text: string;
+  }
+  export interface Question {
+    id: number;
+    title: string;
+    info: string;
   }

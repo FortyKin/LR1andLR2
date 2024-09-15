@@ -139,7 +139,7 @@ const App: React.FC = () => {
 export default App;*/}
 
 //Лабораторна робота 3
-import React from 'react';
+{/*import React from 'react';
 import Review from './Review';
 
 const App: React.FC = () => {
@@ -152,6 +152,30 @@ const App: React.FC = () => {
         </div>
         <Review />
       </section>
+    </main>
+  );
+};
+
+export default App;*/}
+
+//Лабораторна робота 4
+import React, { useState } from 'react';
+import data from './data4';
+import SingleQuestion from './Question';
+
+const App: React.FC = () => {
+  const [questions] = useState(data);
+
+  return (
+    <main>
+      <div className="container">
+        <h3>questions and answers about login</h3>
+        <section className="info">
+          {questions.map((question) => (
+            <SingleQuestion key={question.id} {...question} />
+          ))}
+        </section>
+      </div>
     </main>
   );
 };
