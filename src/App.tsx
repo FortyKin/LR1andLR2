@@ -80,7 +80,7 @@ const App: React.FC = () => {
 };
 
 export default App;*/}
-import React, { useState, useEffect } from 'react';
+{/*import React, { useState, useEffect } from 'react';
 import Loading from './Loading';
 import Tours from './Tours';
 import { Tour } from './types';
@@ -132,6 +132,26 @@ const App: React.FC = () => {
   return (
     <main>
       <Tours tours={tours} removeTour={removeTour} />
+    </main>
+  );
+};
+
+export default App;*/}
+
+//Лабораторна робота 3
+import React from 'react';
+import Review from './Review';
+
+const App: React.FC = () => {
+  return (
+    <main>
+      <section className="container">
+        <div className="title">
+          <h2>our reviews</h2>
+          <div className="underline"></div>
+        </div>
+        <Review />
+      </section>
     </main>
   );
 };

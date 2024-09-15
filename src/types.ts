@@ -12,3 +12,10 @@ export interface Person {
     image: string;
     price: string;
   }
+  export interface Person {
+    id: number;
+    name: string;
+    job: string;
+    image: string;
+    text: string;
+  }
