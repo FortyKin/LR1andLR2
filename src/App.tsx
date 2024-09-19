@@ -183,7 +183,7 @@ const App: React.FC = () => {
 export default App;*/}
 
 //Лабораторна робота 5
-import React, { useState } from 'react';
+{/*import React, { useState } from 'react';
 import Menu from './Menu';
 import Categories from './Categories';
 import { items, MenuItem } from './data5+type';
@@ -214,6 +214,92 @@ const App: React.FC = () => {
         <Menu items={menuItems} />
       </section>
     </main>
+  );
+};
+
+export default App;*/}
+
+//Лабораторна робота 6
+import React, { useState, useEffect } from 'react';
+import { FiChevronRight, FiChevronLeft } from 'react-icons/fi';
+
+interface Person {
+  id: number;
+  image: string;
+  name: string;
+  title: string;
+  quote: string;
+}
+
+const data: Person[] = [
+  {
+    id: 1,
+    image: 'https://www.course-api.com/images/people/person-1.jpeg',
+    name: 'maria ferguson',
+    title: 'office manager',
+    quote: 'Fingerstache umami squid, kinfolk subway tile selvage tumblr man braid viral kombucha gentrify fanny pack raclette pok pok mustache.',
+  },
+  {
+    id: 2,
+    image: 'https://www.course-api.com/images/people/person-4.jpeg',
+    name: 'john doe',
+    title: 'regular guy',
+    quote: 'Gastropub sustainable tousled prism occupy. Viral XOXO roof party brunch actually, chambray listicle microdosing put a bird on it paleo subway tile squid umami.',
+  },
+  {
+    id: 3,
+    image: 'https://www.course-api.com/images/people/person-3.jpeg',
+    name: 'peter smith',
+    title: 'product designer',
+    quote: 'Drinking vinegar polaroid street art echo park, actually semiotics next level butcher master cleanse hammock flexitarian ethical paleo.',
+  },
+];
+
+const App: React.FC = () => {
+  const [people] = useState<Person[]>(data);
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const lastIndex = people.length - 1;
+    if (index < 0) {
+      setIndex(lastIndex);
+    }
+    if (index > lastIndex) {
+      setIndex(0);
+    }
+  }, [index, people]);
+
+  useEffect(() => {
+    let slider = setInterval(() => {
+      setIndex((oldIndex) => (oldIndex + 1) % people.length);
+    }, 3000);
+    return () => clearInterval(slider);
+  }, [index, people.length]);
+
+  const { image, name, title, quote } = people[index];
+
+  return (
+    <section className="section">
+      <div className="title">
+        <h2>
+          <span>/</span>reviews
+        </h2>
+      </div>
+      <div className="section-center">
+        <article>
+          <img src={image} alt={name} className="person-img" />
+          <h4>{name}</h4>
+          <p className="title">{title}</p>
+          <p className="text">{quote}</p>
+        </article>
+        <button className="prev" onClick={() => setIndex(index - 1)}>
+          <FiChevronLeft />
+        </button>
+        <button className="next" onClick={() => setIndex(index + 1)}>
+          <FiChevronRight />
+        </button>
+      </div>
+    </section>
   );
 };
 
