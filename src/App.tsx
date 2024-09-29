@@ -220,7 +220,7 @@ const App: React.FC = () => {
 export default App;*/}
 
 //Лабораторна робота 6
-import React, { useState, useEffect } from 'react';
+{/*import React, { useState, useEffect } from 'react';
 import { FiChevronRight, FiChevronLeft } from 'react-icons/fi';
 
 interface Person {
@@ -300,6 +300,154 @@ const App: React.FC = () => {
         </button>
       </div>
     </section>
+  );
+};
+
+export default App;*/}
+
+
+//Лабораторна робота 7
+import React, { useState, useEffect } from 'react';
+
+interface TodoItem {
+  id: string;
+  title: string;
+}
+
+interface AlertProps {
+  show: boolean;
+  msg: string;
+  type: 'success' | 'danger';
+}
+
+const App: React.FC = () => {
+  const getLocalStorage = (): TodoItem[] => {
+    let list = localStorage.getItem('list');
+    if (list) {
+      return JSON.parse(list);
+    } else {
+      return [];
+    }
+  };
+
+  const [name, setName] = useState<string>('');
+  const [list, setList] = useState<TodoItem[]>(getLocalStorage());
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [editID, setEditID] = useState<string | null>(null);
+  const [alert, setAlert] = useState<AlertProps>({ show: false, msg: '', type: 'success' });
+
+  useEffect(() => {
+    localStorage.setItem('list', JSON.stringify(list));
+  }, [list]);
+
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!name) {
+      showAlert(true, 'please enter value', 'danger');
+    } else if (name && isEditing) {
+      setList(
+        list.map((item) => {
+          if (item.id === editID) {
+            return { ...item, title: name };
+          }
+          return item;
+        })
+      );
+      setName('');
+      setEditID(null);
+      setIsEditing(false);
+      showAlert(true, 'value changed', 'success');
+    } else {
+      showAlert(true, 'item added to the list', 'success');
+      const newItem = { id: new Date().getTime().toString(), title: name };
+      setList([...list, newItem]);
+      setName('');
+    }
+  };
+
+  const showAlert = (show: boolean = false, msg: string = '', type: 'success' | 'danger' = 'success') => {
+    setAlert({ show, msg, type });
+  };
+
+  const clearList = () => {
+    showAlert(true, 'empty list', 'danger');
+    setList([]);
+  };
+
+  const removeItem = (id: string) => {
+    showAlert(true, 'item removed', 'danger');
+    setList(list.filter((item) => item.id !== id));
+  };
+
+  const editItem = (id: string) => {
+    const specificItem = list.find((item) => item.id === id);
+    setIsEditing(true);
+    setEditID(id);
+    setName(specificItem?.title || '');
+  };
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      showAlert();
+    }, 3000);
+    return () => clearTimeout(timeout);
+  }, [alert]);
+
+  return (
+    <section className="section-center">
+      <form className="grocery-form" onSubmit={handleSubmit}>
+        {alert.show && <Alert {...alert} />}
+        <h3>todo list</h3>
+        <div className="form-control">
+          <input
+            type="text"
+            className="grocery"
+            placeholder="e.g. eggs"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <button type="submit" className="submit-btn">
+            {isEditing ? 'edit' : 'submit'}
+          </button>
+        </div>
+      </form>
+      {list.length > 0 && (
+        <div className="grocery-container">
+          <List items={list} removeItem={removeItem} editItem={editItem} />
+          <button className="clear-btn" onClick={clearList}>
+            clear items
+          </button>
+        </div>
+      )}
+    </section>
+  );
+};
+
+const Alert: React.FC<AlertProps> = ({ type, msg }) => {
+  return <p className={`alert alert-${type}`}>{msg}</p>;
+};
+
+const List: React.FC<{ items: TodoItem[]; removeItem: (id: string) => void; editItem: (id: string) => void }> = ({ items, removeItem, editItem }) => {
+  return (
+    <div className="grocery-list">
+      {items.map((item) => {
+        const { id, title } = item;
+        return (
+          <article className="grocery-item" key={id}>
+            <p className="title">{title}</p>
+            <div className="btn-container">
+              <button type="button" className="edit-btn" onClick={() => editItem(id)}>
+                Edit
+              </button>
+              <button type="button" className="delete-btn" onClick={() => removeItem(id)}>
+                Delete
+              </button>
+            </div>
+          </article>
+        );
+      })}
+    </div>
   );
 };
 
