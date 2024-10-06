@@ -307,7 +307,7 @@ export default App;*/}
 
 
 //Лабораторна робота 7
-import React, { useState, useEffect } from 'react';
+{/*import React, { useState, useEffect } from 'react';
 
 interface TodoItem {
   id: string;
@@ -448,6 +448,236 @@ const List: React.FC<{ items: TodoItem[]; removeItem: (id: string) => void; edit
         );
       })}
     </div>
+  );
+};
+
+export default App;*/}
+
+//Лабораторна робота 8
+import React, { useState, useEffect } from 'react';
+import { FaBars, FaTwitter, FaFacebook, FaLinkedin, FaBehance } from 'react-icons/fa';
+
+// Определение типов
+type Link = {
+  id: number;
+  url: string;
+  text: string;
+};
+
+type SocialLink = {
+  id: number;
+  url: string;
+  icon: JSX.Element;
+};
+
+// Данные
+const links: Link[] = [
+  { id: 1, url: '/', text: 'home' },
+  { id: 2, url: '/about', text: 'about' },
+  { id: 3, url: '/projects', text: 'projects' },
+  { id: 4, url: '/contact', text: 'contact' },
+  { id: 5, url: '/profile', text: 'profile' },
+];
+
+const social: SocialLink[] = [
+  { id: 1, url: 'https://www.facebook.com', icon: <FaFacebook /> },
+  { id: 2, url: 'https://www.twitter.com', icon: <FaTwitter /> },
+  { id: 3, url: 'https://www.linkedin.com', icon: <FaLinkedin /> },
+  { id: 4, url: 'https://www.behance.com', icon: <FaBehance /> },
+];
+
+// Компонент Sidebar
+const Sidebar: React.FC<{ links: Link[] }> = ({ links }) => {
+  return (
+    <div className="links-container">
+      <ul className="links">
+        {links.map((link) => (
+          <li key={link.id}>
+            <a href={link.url}>{link.text}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+// Компонент SocialIcons
+const SocialIcons: React.FC<{ socialLinks: SocialLink[] }> = ({ socialLinks }) => {
+  return (
+    <ul className="social-icons">
+      {socialLinks.map((socialLink) => (
+        <li key={socialLink.id}>
+          <a href={socialLink.url}>{socialLink.icon}</a>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+// Главный компонент Navbar
+const Navbar: React.FC = () => {
+  const [showLinks, setShowLinks] = useState(false);
+
+  useEffect(() => {
+    const showMenu = () => {
+      if (window.innerWidth > 800) {
+        setShowLinks(true);
+      } else {
+        setShowLinks(false);
+      }
+    };
+
+    window.addEventListener("resize", showMenu);
+    showMenu(); // Вызываем функцию при монтировании компонента
+
+    return () => window.removeEventListener("resize", showMenu);
+  }, []);
+
+  return (
+    <nav>
+      <div className="nav-center">
+        <div className="nav-header">
+          <img src="logo.svg" alt="logo" />
+          <button className="nav-toggle" onClick={() => setShowLinks(!showLinks)}>
+            <FaBars />
+          </button>
+        </div>
+        {showLinks && <Sidebar links={links} />}
+        <SocialIcons socialLinks={social} />
+      </div>
+    </nav>
+  );
+};
+
+// Стили
+const styles = `
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+  }
+  
+  nav {
+    background: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .nav-center {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+  }
+  
+  .nav-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .nav-toggle {
+    font-size: 1.5rem;
+    color: #49a6e9;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s linear;
+  }
+  
+  .links-container {
+    height: 0;
+    overflow: hidden;
+    transition: all 0.3s linear;
+  }
+  
+  .show-container {
+    height: auto;
+  }
+  
+  .links a {
+    color: #324d67;
+    font-size: 1rem;
+    text-transform: capitalize;
+    letter-spacing: 0.1rem;
+    display: block;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s linear;
+  }
+  
+  .links a:hover {
+    background: #49a6e9;
+    color: #fff;
+    padding-left: 1.5rem;
+  }
+  
+  .social-icons {
+    display: none;
+  }
+  
+  @media screen and (min-width: 800px) {
+    .nav-center {
+      max-width: 1170px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem;
+    }
+  
+    .nav-header {
+      width: auto;
+    }
+  
+    .nav-toggle {
+      display: none;
+    }
+  
+    .links-container {
+      height: auto !important;
+    }
+  
+    .links {
+      display: flex;
+    }
+  
+    .links a {
+      padding: 0;
+      margin: 0 0.5rem;
+    }
+  
+    .links a:hover {
+      padding: 0;
+      background: transparent;
+    }
+  
+    .social-icons {
+      display: flex;
+    }
+  
+    .social-icons a {
+      margin: 0 0.5rem;
+      color: #49a6e9;
+      transition: all 0.3s linear;
+    }
+  
+    .social-icons a:hover {
+      color: #324d67;
+    }
+  }
+`;
+
+// Рендеринг компонента и добавление стилей
+const App: React.FC = () => {
+  return (
+    <>
+      <style>{styles}</style>
+      <Navbar />
+    </>
   );
 };
 
