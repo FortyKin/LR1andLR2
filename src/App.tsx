@@ -454,7 +454,7 @@ const List: React.FC<{ items: TodoItem[]; removeItem: (id: string) => void; edit
 export default App;*/}
 
 //Лабораторна робота 8
-import React, { useState, useEffect } from 'react';
+{/*import React, { useState, useEffect } from 'react';
 import { FaBars, FaTwitter, FaFacebook, FaLinkedin, FaBehance } from 'react-icons/fa';
 
 // Определение типов
@@ -681,4 +681,901 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default App;*/}
+
+//Лабораторна робота 9. Sidebar та модальне вікно на React
+{/*import React, { createContext, useContext, useState, ReactNode } from 'react';
+import type { IconType } from 'react-icons/lib';
+import { 
+  FaHome, 
+  FaUserFriends, 
+  FaFolderOpen, 
+  FaCalendarAlt, 
+  FaWpforms,
+  FaTimes,
+  FaFacebook,
+  FaTwitter,
+  FaLinkedin,
+  FaBehance,
+  FaBars
+} from 'react-icons/fa';
+
+// Updated interface with IconType
+interface Link {
+  id: number;
+  url: string;
+  text: string;
+  icon: React.ReactElement<IconType>;
+}
+
+interface Social {
+  id: number;
+  url: string;
+  icon: React.ReactElement<IconType>;
+}
+
+interface AppContextType {
+  isModalOpen: boolean;
+  isSidebarOpen: boolean;
+  openModal: () => void;
+  closeModal: () => void;
+  openSidebar: () => void;
+  closeSidebar: () => void;
+}
+
+// Mock Data
+const links: Link[] = [
+  {
+    id: 1,
+    url: '/',
+    text: 'home',
+    icon: <FaHome />
+  },
+  {
+    id: 2,
+    url: '/team',
+    text: 'team',
+    icon: <FaUserFriends />
+  },
+  {
+    id: 3,
+    url: '/projects',
+    text: 'projects',
+    icon: <FaFolderOpen />
+  },
+  {
+    id: 4,
+    url: '/calendar',
+    text: 'calendar',
+    icon: <FaCalendarAlt />
+  },
+  {
+    id: 5,
+    url: '/documents',
+    text: 'documents',
+    icon: <FaWpforms />
+  }
+];
+
+const social: Social[] = [
+  {
+    id: 1,
+    url: 'https://www.facebook.com',
+    icon: <FaFacebook />
+  },
+  {
+    id: 2,
+    url: 'https://www.twitter.com',
+    icon: <FaTwitter />
+  },
+  {
+    id: 3,
+    url: 'https://www.linkedin.com',
+    icon: <FaLinkedin />
+  },
+  {
+    id: 4,
+    url: 'https://www.behance.com',
+    icon: <FaBehance />
+  }
+];
+
+// Context
+const AppContext = createContext<AppContextType | undefined>(undefined);
+
+// Provider Component
+const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+  const openSidebar = () => setIsSidebarOpen(true);
+  const closeSidebar = () => setIsSidebarOpen(false);
+
+  return (
+    <AppContext.Provider
+      value={{
+        isModalOpen,
+        isSidebarOpen,
+        openModal,
+        closeModal,
+        openSidebar,
+        closeSidebar,
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  );
+};
+
+// Custom Hook
+const useGlobalContext = () => {
+  const context = useContext(AppContext);
+  if (context === undefined) {
+    throw new Error('useGlobalContext must be used within an AppProvider');
+  }
+  return context;
+};
+
+// Components
+const Home: React.FC = () => {
+  const { openSidebar, openModal } = useGlobalContext();
+
+  return (
+    <main>
+      <button onClick={openSidebar} className="sidebar-toggle">
+        <FaBars />
+      </button>
+      <button onClick={openModal} className="btn">
+        show modal
+      </button>
+    </main>
+  );
+};
+
+const Modal: React.FC = () => {
+  const { isModalOpen, closeModal } = useGlobalContext();
+
+  return (
+    <div className={`modal-overlay ${isModalOpen ? 'show-modal' : ''}`}>
+      <div className="modal-container">
+        <h3>modal content</h3>
+        <button className="close-modal-btn" onClick={closeModal}>
+          <FaTimes />
+        </button>
+      </div>
+    </div>
+  );
+};
+
+const Sidebar: React.FC = () => {
+  const { isSidebarOpen, closeSidebar } = useGlobalContext();
+
+  return (
+    <aside className={`sidebar ${isSidebarOpen ? 'show-sidebar' : ''}`}>
+      <div className="sidebar-header">
+        <h3>Logo</h3>
+        <button className="close-btn" onClick={closeSidebar}>
+          <FaTimes />
+        </button>
+      </div>
+      <ul className="links">
+        {links.map((link) => (
+          <li key={link.id}>
+            <a href={link.url}>
+              {link.icon} {link.text}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <ul className="social-icons">
+        {social.map((link) => (
+          <li key={link.id}>
+            <a href={link.url}>{link.icon}</a>
+          </li>
+        ))}
+      </ul>
+    </aside>
+  );
+};
+
+// Main App Component
+const App: React.FC = () => {
+  return (
+    <>
+      <Home />
+      <Modal />
+      <Sidebar />
+    </>
+  );
+};
+
+// Styles
+const styles = `
+  :root {
+    --clr-primary: #2680c0;
+    --clr-background: #f1f5f8;
+    --transition: all 0.3s linear;
+  }*/}
+
+  /* Global Styles */
+  {/** {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background: var(--clr-background);
+    color: #102a42;
+    line-height: 1.5;
+    font-size: 0.875rem;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }*/}
+
+  /* Main */
+  {/*main {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .sidebar-toggle {
+    position: fixed;
+    top: 2rem;
+    left: 3rem;
+    font-size: 2rem;
+    background: transparent;
+    border: transparent;
+    color: var(--clr-primary);
+    cursor: pointer;
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  .btn {
+    text-transform: uppercase;
+    background: var(--clr-primary);
+    color: white;
+    padding: 0.375rem 0.75rem;
+    letter-spacing: 0.1rem;
+    font-size: 0.875rem;
+    border: 2px solid var(--clr-primary);
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    border-radius: 0.25rem;
+    transition: var(--transition);
+  }
+
+  .btn:hover {
+    background: transparent;
+    color: var(--clr-primary);
+  }*/}
+
+  /* Modal */
+  {/*}.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: grid;
+    place-items: center;
+    visibility: hidden;
+    z-index: -1;
+  }
+
+  .show-modal {
+    visibility: visible;
+    z-index: 10;
+  }
+
+  .modal-container {
+    background: white;
+    border-radius: 0.25rem;
+    width: 90vw;
+    max-width: 620px;
+    height: 30vh;
+    text-align: center;
+    display: grid;
+    place-items: center;
+    position: relative;
+  }
+
+  .close-modal-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2rem;
+    background: transparent;
+    border: transparent;
+    color: #bb2525;
+    cursor: pointer;
+  }*/}
+
+  /* Sidebar */
+  {/*.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    row-gap: 1rem;
+    box-shadow: 2px 0 2px rgba(0, 0, 0, 0.2);
+    transition: var(--transition);
+    transform: translate(-100%);
+  }
+
+  .show-sidebar {
+    transform: translate(0);
+  }
+
+  .sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+  }
+
+  .close-btn {
+    font-size: 1.75rem;
+    background: transparent;
+    border: transparent;
+    color: #bb2525;
+    cursor: pointer;
+  }
+
+  .links a {
+    display: flex;
+    align-items: center;
+    font-size: 1.25rem;
+    text-transform: capitalize;
+    padding: 1rem 1.5rem;
+    color: #617d98;
+    transition: var(--transition);
+    letter-spacing: 0.1rem;
+  }
+
+  .links a:hover {
+    background: var(--clr-background);
+    color: #243a52;
+    padding-left: 1.75rem;
+  }
+
+  .links a svg {
+    font-size: 1.5rem;
+    color: #617d98;
+    margin-right: 1rem;
+    transition: var(--transition);
+  }
+
+  .links a:hover svg {
+    color: #243a52;
+  }
+
+  .social-icons {
+    justify-self: center;
+    display: flex;
+    padding-bottom: 2rem;
+  }
+
+  .social-icons a {
+    font-size: 1.5rem;
+    margin: 0 0.5rem;
+    color: var(--clr-primary);
+    transition: var(--transition);
+  }
+
+  .social-icons a:hover {
+    color: #88bcee;
+  }
+
+  @media screen and (min-width: 676px) {
+    .sidebar {
+      width: 400px;
+    }
+  }
+
+  @keyframes bounce {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.5);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+`;
+
+// Root component with styles
+const Root: React.FC = () => {
+  return (
+    <AppProvider>
+      <style>{styles}</style>
+      <App />
+    </AppProvider>
+  );
+};
+
+export default Root;*/}
+
+//Лабораторна робота 10 Кошик товарів на React
+import React, { createContext, useContext, useReducer, useEffect } from 'react';
+
+// Types
+interface CartItem {
+  id: string;
+  title: string;
+  price: number;
+  img: string;
+  amount: number;
+}
+
+interface AppState {
+  loading: boolean;
+  cart: CartItem[];
+  total: number;
+  amount: number;
+}
+
+type ActionType =
+  | { type: 'CLEAR_CART' }
+  | { type: 'REMOVE'; payload: string }
+  | { type: 'INCREASE'; payload: string }
+  | { type: 'DECREASE'; payload: string }
+  | { type: 'GET_TOTALS' }
+  | { type: 'LOADING' }
+  | { type: 'DISPLAY_ITEMS'; payload: CartItem[] };
+
+interface AppContextType extends AppState {
+  clearCart: () => void;
+  remove: (id: string) => void;
+  increase: (id: string) => void;
+  decrease: (id: string) => void;
+}
+
+// Initial state
+const initialState: AppState = {
+  loading: false,
+  cart: [],
+  total: 0,
+  amount: 0,
+};
+
+// Context
+const AppContext = createContext<AppContextType | undefined>(undefined);
+
+// Reducer
+function reducer(state: AppState, action: ActionType): AppState {
+  switch (action.type) {
+    case 'CLEAR_CART':
+      return { ...state, cart: [] };
+    
+    case 'REMOVE':
+      return {
+        ...state,
+        cart: state.cart.filter((item) => item.id !== action.payload),
+      };
+    
+    case 'INCREASE':
+      return {
+        ...state,
+        cart: state.cart.map((item) => {
+          if (item.id === action.payload) {
+            return { ...item, amount: item.amount + 1 };
+          }
+          return item;
+        }),
+      };
+    
+    case 'DECREASE':
+      return {
+        ...state,
+        cart: state.cart.map((item) => {
+          if (item.id === action.payload) {
+            return { ...item, amount: Math.max(0, item.amount - 1) };
+          }
+          return item;
+        }).filter(item => item.amount > 0),
+      };
+    
+    case 'GET_TOTALS':
+      const { total, amount } = state.cart.reduce(
+        (cartTotal, cartItem) => {
+          const { price, amount } = cartItem;
+          cartTotal.amount += amount;
+          cartTotal.total += price * amount;
+          return cartTotal;
+        },
+        { total: 0, amount: 0 }
+      );
+      return {
+        ...state,
+        total: parseFloat(total.toFixed(2)),
+        amount,
+      };
+    
+    case 'LOADING':
+      return { ...state, loading: true };
+    
+    case 'DISPLAY_ITEMS':
+      return {
+        ...state,
+        loading: false,
+        cart: action.payload,
+      };
+    
+    default:
+      return state;
+  }
+}
+
+// Provider Component
+const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const clearCart = () => {
+    dispatch({ type: 'CLEAR_CART' });
+  };
+
+  const remove = (id: string) => {
+    dispatch({ type: 'REMOVE', payload: id });
+  };
+
+  const increase = (id: string) => {
+    dispatch({ type: 'INCREASE', payload: id });
+  };
+
+  const decrease = (id: string) => {
+    dispatch({ type: 'DECREASE', payload: id });
+  };
+
+  useEffect(() => {
+    dispatch({ type: 'GET_TOTALS' });
+  }, [state.cart]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      dispatch({ type: 'LOADING' });
+      try {
+        const response = await fetch('https://course-api.com/react-useReducer-cart-project');
+        const cart = await response.json();
+        dispatch({ type: 'DISPLAY_ITEMS', payload: cart });
+      } catch (error) {
+        console.log('Error fetching data:', error);
+        dispatch({ type: 'DISPLAY_ITEMS', payload: [] });
+      }
+    };
+    fetchData();
+  }, []);
+
+  return (
+    <AppContext.Provider
+      value={{
+        ...state,
+        clearCart,
+        remove,
+        increase,
+        decrease,
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  );
+};
+
+// Custom Hook
+const useGlobalContext = () => {
+  const context = useContext(AppContext);
+  if (context === undefined) {
+    throw new Error('useGlobalContext must be used within an AppProvider');
+  }
+  return context;
+};
+
+// Components
+const Navbar: React.FC = () => {
+  const { amount } = useGlobalContext();
+  return (
+    <nav>
+      <div className="nav-center">
+        <h3>Shopping Cart</h3>
+        <div className="nav-container">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+            <path d="M16 6v2h2l2 12H0L2 8h2V6a6 6 0 1 1 12 0zm-2 0a4 4 0 1 0-8 0v2h8V6zM4 10v2h2v-2H4zm10 0v2h2v-2h-2z" />
+          </svg>
+          <div className="amount-container">
+            <p className="total-amount">{amount}</p>
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
+};
+
+const CartItem: React.FC<CartItem> = ({ id, img, title, price, amount }) => {
+  const { remove, increase, decrease } = useGlobalContext();
+  return (
+    <article className="cart-item">
+      <img src={img} alt={title} />
+      <div>
+        <h4>{title}</h4>
+        <h4 className="item-price">${price}</h4>
+        <button className="remove-btn" onClick={() => remove(id)}>
+          remove
+        </button>
+      </div>
+      <div>
+        <button className="amount-btn" onClick={() => increase(id)}>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+            <path d="M10.707 7.05L10 6.343 4.343 12l1.414 1.414L10 9.172l4.243 4.242L15.657 12z" />
+          </svg>
+        </button>
+        <p className="amount">{amount}</p>
+        <button className="amount-btn" onClick={() => decrease(id)}>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+          </svg>
+        </button>
+      </div>
+    </article>
+  );
+};
+
+const CartContainer: React.FC = () => {
+  const { cart, total, clearCart } = useGlobalContext();
+
+  if (cart.length === 0) {
+    return (
+      <section className="cart">
+        <header>
+          <h2>your bag</h2>
+          <h4 className="empty-cart">is currently empty</h4>
+        </header>
+      </section>
+    );
+  }
+
+  return (
+    <section className="cart">
+      <header>
+        <h2>your bag</h2>
+      </header>
+      <div>
+        {cart.map((item) => (
+          <CartItem key={item.id} {...item} />
+        ))}
+      </div>
+      <footer>
+        <hr />
+        <div className="cart-total">
+          <h4>
+            total <span>${total}</span>
+          </h4>
+        </div>
+        <button className="btn clear-btn" onClick={clearCart}>
+          clear cart
+        </button>
+      </footer>
+    </section>
+  );
+};
+
+// Main App Component
+const App: React.FC = () => {
+  const { loading } = useGlobalContext();
+
+  if (loading) {
+    return (
+      <div className="loading">
+        <h1>Loading...</h1>
+      </div>
+    );
+  }
+
+  return (
+    <main>
+      <Navbar />
+      <CartContainer />
+    </main>
+  );
+};
+
+// Styles
+const styles = `
+  :root {
+    --clr-primary: #2680c0;
+    --clr-background: #f1f5f8;
+  }
+
+  /* Global Styles */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background: var(--clr-background);
+    color: #102a42;
+  }
+
+  /* Navbar */
+  .nav-center {
+    max-width: 1170px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  .nav-container {
+    position: relative;
+  }
+
+  .amount-container {
+    position: absolute;
+    top: -0.5rem;
+    right: -0.5rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    background: var(--clr-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .total-amount {
+    color: white;
+    font-size: 0.85rem;
+  }
+
+  /* Cart */
+  .cart {
+    min-height: calc(100vh - 120px);
+    width: 90vw;
+    margin: 0 auto;
+    margin-top: 40px;
+    padding: 2.5rem 0;
+    max-width: 800px;
+  }
+
+  .cart h2 {
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .empty-cart {
+    text-align: center;
+    text-transform: lowercase;
+    margin-top: 1rem;
+    color: #617d98;
+  }
+
+  /* Cart Item */
+  .cart-item {
+    display: grid;
+    align-items: center;
+    grid-template-columns: auto 1fr auto;
+    grid-column-gap: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .cart-item img {
+    width: 5rem;
+    height: 5rem;
+    object-fit: cover;
+  }
+
+  .cart-item h4 {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+  }
+
+  .item-price {
+    color: #617d98;
+  }
+
+  .remove-btn {
+    color: #bb2525;
+    background: transparent;
+    border: transparent;
+    cursor: pointer;
+    font-size: 0.85rem;
+    margin-top: 0.375rem;
+  }
+
+  .amount-btn {
+    width: 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  .amount-btn svg {
+    color: var(--clr-primary);
+  }
+
+  .amount {
+    text-align: center;
+    margin-bottom: 0;
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+
+  hr {
+    background: #617d98;
+    border-color: transparent;
+    border-width: 0.5px;
+  }
+
+  .cart-total {
+    text-align: right;
+    margin-top: 1.5rem;
+    margin-right: 2rem;
+  }
+
+  .cart-total h4 {
+    text-transform: capitalize;
+    letter-spacing: 2px;
+  }
+
+  .cart-total span {
+    padding-left: 0.5rem;
+    color: var(--clr-primary);
+    font-weight: bold;
+  }
+
+  .btn {
+    text-transform: uppercase;
+    background: var(--clr-primary);
+    color: white;
+    padding: 0.375rem 0.75rem;
+    letter-spacing: 0.1rem;
+    font-weight: 400;
+    border: 2px solid var(--clr-primary);
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    margin: 2rem auto;
+    display: block;
+  }
+
+  .loading {
+    text-align: center;
+    margin-top: 5rem;
+  }
+`;
+
+// Root component with styles
+const Root: React.FC = () => {
+  return (
+    <AppProvider>
+      <style>{styles}</style>
+      <App />
+    </AppProvider>
+  );
+};
+
+export default Root;
+
