@@ -1113,7 +1113,7 @@ const Root: React.FC = () => {
 export default Root;*/}
 
 //Лабораторна робота 10 Кошик товарів на React
-import React, { createContext, useContext, useReducer, useEffect } from 'react';
+{/*import React, { createContext, useContext, useReducer, useEffect } from 'react';
 
 // Types
 interface CartItem {
@@ -1401,7 +1401,7 @@ const styles = `
     --clr-background: #f1f5f8;
   }
 
-  /* Global Styles */
+  
   * {
     margin: 0;
     padding: 0;
@@ -1415,7 +1415,7 @@ const styles = `
     color: #102a42;
   }
 
-  /* Navbar */
+  
   .nav-center {
     max-width: 1170px;
     margin: 0 auto;
@@ -1447,7 +1447,7 @@ const styles = `
     font-size: 0.85rem;
   }
 
-  /* Cart */
+  
   .cart {
     min-height: calc(100vh - 120px);
     width: 90vw;
@@ -1470,7 +1470,7 @@ const styles = `
     color: #617d98;
   }
 
-  /* Cart Item */
+  
   .cart-item {
     display: grid;
     align-items: center;
@@ -1577,5 +1577,124 @@ const Root: React.FC = () => {
   );
 };
 
-export default Root;
+export default Root;*/}
+
+//Лабораторна робота 11. Розробка і валідація форм на React
+import { useForm } from "react-hook-form";
+
+interface FormInputs {
+  login: string;
+  firstName: string;
+  lastName: string;
+}
+
+const FormComponent = () => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors }
+  } = useForm<FormInputs>({
+    mode: "onSubmit"
+  });
+
+  const onSubmit = (data: FormInputs) => {
+    console.log(JSON.stringify(data));
+    reset({
+      firstName: "Пам'ятай",
+      lastName: "Про курсову роботу",
+      login: ""
+    });
+  };
+
+  // Regex for Latin characters only
+  const latinRegex = /^[A-Za-z0-9]*$/;
+
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-gray-100">
+      <div className="w-full max-w-md space-y-8 rounded-xl bg-white p-8 shadow-lg">
+        <h1 className="text-center text-2xl font-bold text-gray-900">React Hook Form for IPZ</h1>
+        
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Login:
+              <input
+                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                {...register("login", {
+                  required: "Поле обов'язкове для заповнення!",
+                  pattern: {
+                    value: latinRegex,
+                    message: "Використовуйте тільки латиницю!"
+                  }
+                })}
+              />
+            </label>
+            <div className="h-6">
+              {errors?.login && (
+                <p className="text-sm text-red-600">{errors.login.message}</p>
+              )}
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              FirstName:
+              <input
+                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                {...register("firstName", {
+                  required: "Поле обов'язкове для заповнення!",
+                  minLength: {
+                    value: 5,
+                    message: "Мінімальна кількість символів 5"
+                  }
+                })}
+              />
+            </label>
+            <div className="h-6">
+              {errors?.firstName && (
+                <p className="text-sm text-red-600">{errors.firstName.message}</p>
+              )}
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              LastName:
+              <input
+                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                {...register("lastName", {
+                  required: "Поле обов'язкове для заповнення!",
+                  minLength: {
+                    value: 5,
+                    message: "Мінімальна кількість символів 5"
+                  },
+                  maxLength: {
+                    value: 25,
+                    message: "Максимальна кількість символів 25"
+                  }
+                })}
+              />
+            </label>
+            <div className="h-6">
+              {errors?.lastName && (
+                <p className="text-sm text-red-600">{errors.lastName.message}</p>
+              )}
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            className="w-full rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          >
+            Відправити
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default FormComponent;
+
 
