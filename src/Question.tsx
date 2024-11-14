@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
-import { Question } from './types';
+import { Question } from './types1';
 
 const SingleQuestion: React.FC<Question> = ({ title, info }) => {
   const [showInfo, setShowInfo] = useState(false);

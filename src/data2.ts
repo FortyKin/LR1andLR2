@@ -1,4 +1,4 @@
-import { Tour } from './types';
+import { Tour } from './types1';
 
 const data: Tour[] = [
   {

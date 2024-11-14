@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Tour as TourType } from './types';
+import { Tour as TourType } from './types1';
 
 interface TourProps extends TourType {
   removeTour: (id: string) => void;

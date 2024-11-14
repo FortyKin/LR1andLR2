@@ -1580,7 +1580,7 @@ const Root: React.FC = () => {
 export default Root;*/}
 
 //Лабораторна робота 11. Розробка і валідація форм на React
-import { useForm } from "react-hook-form";
+{/*import { useForm } from "react-hook-form";
 
 interface FormInputs {
   login: string;
@@ -1695,6 +1695,32 @@ const FormComponent = () => {
   );
 };
 
-export default FormComponent;
+export default FormComponent;*/}
+
+//
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Navbar } from './components/Navbar';
+import { Home } from './pages/Home';
+import { About } from './pages/About';
+import { SingleCocktail } from './pages/SingleCocktail';
+import { Error } from './pages/Error';
+
+const App: React.FC = () => {
+  return (
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/cocktail/:id" element={<SingleCocktail />} />
+        <Route path="*" element={<Error />} />
+      </Routes>
+    </Router>
+  );
+};
+
+export default App;
+
 
 

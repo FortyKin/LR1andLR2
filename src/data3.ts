@@ -1,4 +1,4 @@
-import { Person3 } from './types';
+import { Person3 } from './types1';
 
 const people: Person3[] = [
   {

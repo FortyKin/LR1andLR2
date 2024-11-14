@@ -1,6 +1,6 @@
 import React from 'react';
 import Tour from './Tour';
-import { Tour as TourType } from './types';
+import { Tour as TourType } from './types1';
 
 interface ToursProps {
   tours: TourType[];

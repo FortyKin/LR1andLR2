@@ -1,5 +1,5 @@
 import React from 'react';
-import { Person } from './types';
+import { Person } from './types1';
 
 interface ListProps {
   people: Person[];
